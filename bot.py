@@ -12,7 +12,7 @@ passwd=bot_config.passwd
 default_message = """/del - очистить текущие данные
 /reset - перезагрузить Персону
 """
-newpath = ".\\new\\"
+newpath = "\\new\\"
 
 
 bot = telebot.TeleBot(API_key)
@@ -37,18 +37,21 @@ def get_text_messages(message):
             dt = str(dt).replace(":","_").replace(".", "_")
             dt = "".join(dt.split())
             folder_name = "".join(folder_name.split())
-            new_dir_name=f"{os.path.join(newpath, folder_name)}_{dt}"
-            print(new_dir_name)
-            os.mkdir(new_dir_name)
-            with open(f"{os.path.join(newpath, folder_name)}_{dt}\\data.txt", "w", encoding="utf-8") as file:
+            new_dir_name=f"{newpath+folder_name}_{dt}"
+            dir = os.path.dirname(os.path.abspath(__file__))
+            print("dir  "+dir)
+            print("os.mkdir  "+dir+new_dir_name)
+            os.mkdir(dir+new_dir_name)
+            print("with open  "+f"{dir+new_dir_name}\\data.txt")
+            with open(f"{dir+new_dir_name}\\data.txt", "w", encoding="utf-8") as file:
                 file.write(f"{name}\n")
                 file.write(f"{decr}\n")
                 file.write(f"{filename}\n")
-            dir = os.path.dirname(os.path.abspath(__file__))
-            fullpath = os.path.join(dir, folder_name
-            shutil.copyfile(os.path.join(dir,"\\image.jpg"), \
-                os.path.join(dir,new_dir_name))
-            os.rename( os.path.join(dir,new_dir_name+"\\image.jpg"), os.path.join(dir,new_dir_name+"\\"+folder_name+".jpg")
+            print(f"dir+\\image.jpg    " +dir+"\\image.jpg")
+            shutil.copyfile(dir+"\\image.jpg", \
+                dir+new_dir_name)
+            os.rename(os.path.join(dir,new_dir_name+"\\image.jpg"), \
+                os.path.join(dir,new_dir_name+"\\"+folder_name+".jpg"))
             bot.send_message(message.from_user.id, "Новые данные добавлены в персону")
         else:
             mess=""
