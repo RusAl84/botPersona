@@ -44,8 +44,11 @@ def get_text_messages(message):
                 file.write(f"{name}\n")
                 file.write(f"{decr}\n")
                 file.write(f"{filename}\n")
-            shutil.copyfile("image.jpg", new_dir_name)
-            os.rename(new_dir_name+"image.jpg", new_dir_name+'\\'+new_dir_name)
+            dir = os.path.dirname(os.path.abspath(__file__))
+            fullpath = os.path.join(dir, folder_name
+            shutil.copyfile(os.path.join(dir,"\\image.jpg"), \
+                os.path.join(dir,new_dir_name))
+            os.rename( os.path.join(dir,new_dir_name+"\\image.jpg"), os.path.join(dir,new_dir_name+"\\"+folder_name+".jpg")
             bot.send_message(message.from_user.id, "Новые данные добавлены в персону")
         else:
             mess=""
